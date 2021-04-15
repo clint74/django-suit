@@ -10,4 +10,4 @@ class TestMenuTestCase(TestCase):
         """
         Just a dummy test case to satisfy Travis until all the tests are finished
         """
-        self.assertEqual(ParentItem(app='abc')._key(), 'abc')
+        self.assertEqual(ParentItem(app="abc")._key(), "abc")

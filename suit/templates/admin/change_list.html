@@ -1,17 +1,24 @@
 {% extends 'admin/change_list.html' %}
 {% load i18n admin_list suit_list %}
 
+{% block extrastyle %}
+  {{ block.super }}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+{% endblock %}
+
 {% block search %}{% suit_search_form cl %}{% endblock %}
 
 {% block filters %}
-    {% if cl.has_filters %}
-        <div id="changelist-filter">{% for spec in cl.filter_specs|suit_list_filter_vertical:cl %}
-            {% if forloop.first %}
-                <h2>{% trans 'Filter' %}</h2>
-            {% endif %}
-            {% admin_list_filter cl spec %}
-        {% endfor %}</div>
-    {% endif %}
+    {% with vertical_filters=cl.filter_specs|suit_list_filter_vertical:cl %}
+        {% if vertical_filters %}
+            <div id="changelist-filter">{% for spec in vertical_filters %}
+                {% if forloop.first %}
+                    <h2>{% trans 'Filter' %}</h2>
+                {% endif %}
+                {% admin_list_filter cl spec %}
+            {% endfor %}</div>
+        {% endif %}
+    {% endwith %}
 {% endblock %}
 
 {% block footer %}
